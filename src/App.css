@@ -141,6 +141,7 @@ body{
     justify-content: space-between;
     > p{
       font-size: 15px;
+      text-transform: none;
     }
     >p:nth-child(2){
       font-weight: bold;

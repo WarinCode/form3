@@ -7,7 +7,7 @@ import { AiOutlineLock } from 'react-icons/ai'
 function Form() {
   return (
     <form className='container'>
-        <header>create you account</header>
+        <header>create your account</header>
         <div className='btn-group'>
             <button type="button">
                 <img src={google} alt="" />
