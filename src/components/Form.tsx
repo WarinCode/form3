@@ -1,10 +1,18 @@
+import { JSX , useState } from 'react'
 import '../App.css'
 import google from '../assets/icon/google.svg'
 import apple from '../assets/icon/apple.svg'
 import { MdOutlineAlternateEmail } from 'react-icons/md'
-import { AiOutlineLock } from 'react-icons/ai'
+import { AiOutlineLock  , AiOutlineUnlock} from 'react-icons/ai'
 
-function Form() {
+export default function Form():JSX.Element {
+    const [psw1 , setPsw1] = useState<"password" | "text">("password");
+    const [psw2 , setPsw2] = useState<"password" | "text">("password");
+
+    const handleClickIcons = (callback:Function , value:string):void => {
+        callback(value);
+    }
+
   return (
     <form className='container'>
         <header>create your account</header>
@@ -25,35 +33,35 @@ function Form() {
         </div>
         <div className='input-container'>
             <div>
-                <span>
-                    <label htmlFor="email">Email:</label>
-                    <MdOutlineAlternateEmail className='icon'/>
-                </span>
-                <input type="text" id="email" placeholder='Your Email' required spellCheck/>
+                <label htmlFor="email">Email:</label>
+                <input type="text" id="email" placeholder='Your Email' required spellCheck autoComplete='false'/>
+                <MdOutlineAlternateEmail className='icon icon1'/>
             </div>
             <div>
-                <span>
-                    <label htmlFor="password">Password:</label>
-                    <AiOutlineLock className='icon'style={{transform: 'translate(226px , 34px)'}} />
-                </span>
-                <input type="password" id="password" placeholder='Your Password' required spellCheck/>
+                <label htmlFor="password">Password:</label>
+                <input type={psw1} id="password" placeholder='Your Password' required spellCheck autoComplete='false' maxLength={18}/>
+                { psw1 == "password" ? (
+                    <AiOutlineLock className='icon icon2' onClick={(e:EventInit):void => handleClickIcons(setPsw1 , 'text')} />
+                ) : (
+                    <AiOutlineUnlock className='icon icon2' onClick={(e:EventInit):void => handleClickIcons(setPsw1 , 'password')}/>
+                )}
             </div>            
             <div>
-                <span>
-                    <label htmlFor="confirmPassword">Repeat Password:</label>
-                    <AiOutlineLock className='icon' style={{transform: 'translate(172px , 34px)'}} />   
-                </span>
-                <input type="password" id="confirmPassword" placeholder='Repeat Password' required spellCheck/>
+                <label htmlFor="confirmPassword">Repeat Password:</label>
+                <input type={psw2} id="confirmPassword" placeholder='Repeat Password' required spellCheck autoComplete='false' maxLength={18}/>
+                { psw2 == "password" ? (
+                    <AiOutlineLock className='icon icon3' onClick={(e:EventInit):void => handleClickIcons(setPsw2 , 'text')} />
+                ) : (
+                    <AiOutlineUnlock className='icon icon3' onClick={(e:EventInit):void => handleClickIcons(setPsw2 , 'password')}/>
+                )}
             </div>
         </div>
         <button type='submit'>Sign up</button>
         <span>
             <p>Did you forget your password?</p>
-            <p>Reset Password</p>
+            <a href='#'>Reset Password</a>
         </span>
         <button type="button">Login</button>
     </form>
   )
 }
-
-export default Form
